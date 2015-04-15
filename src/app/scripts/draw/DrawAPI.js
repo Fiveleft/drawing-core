@@ -6,6 +6,7 @@ define(
       cvs,
       ctx,
       renderFtn,
+      drawUIEvents = {},
       windowEvents;
 
     var DrawAPI = {
@@ -24,8 +25,20 @@ define(
 
         DrawUI.useTouch = $('html').hasClass('touch');
 
+        drawUIEvents[ DrawUI.eventTypes.click ] = function(e){ self._drawEvent(e); };
+        drawUIEvents[ DrawUI.eventTypes.begin ] = function(e){ self._drawEvent(e); };
+        drawUIEvents[ DrawUI.eventTypes.end ] = function(e){ self._drawEvent(e); };
+        drawUIEvents[ DrawUI.eventTypes.draw ] = function(e){ self._drawEvent(e); };
+        $(window).on( drawUIEvents );
+
         $(window).on( windowEvents );
         return this;
+      },
+
+
+
+      _drawEvent : function( e ) {
+        console.log( e.type, e.originalEvent.detail );
       },
 
 
@@ -55,7 +68,6 @@ define(
        * @return {[type]} [description]
        */
       start : function(){
-        var self = this;
         this.playing = true;
         if( this.paused ) {
           this.resume();
@@ -73,7 +85,6 @@ define(
        * @return {[type]} [description]
        */
       stop : function() {
-        var self = this;
         this.playing = false;
         this.paused = false;
         TweenLite.ticker.removeEventListener('tick', renderFtn);
@@ -115,9 +126,9 @@ define(
        * @return {[type]} [description]
        */
       _tick : function() {
-        if(!this.paused) this._render();
-
-
+        if(!this.paused) {
+          this._render();
+        }
       },
 
 

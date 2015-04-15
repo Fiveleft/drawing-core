@@ -11,8 +11,15 @@ define(
       dragHistory = [],
       dragHistorySteps = 10;
 
+
     var DrawUI = {
 
+      eventTypes : {
+        begin : 'drawUI:begin',
+        end : 'drawUI:end',
+        draw : 'drawUI:draw',
+        click : 'drawUI:click'
+      },
 
       useTouch : false,
 
@@ -80,11 +87,16 @@ define(
         _ui.vClick
           .set( e.pageX, e.pageY )
           .subtract( _ui.vCanvas );
-        // console.log( 'DrawUI._click', _ui.vClick.toString() );
+
+        window.dispatchEvent( new CustomEvent( _ui.eventTypes.click, {detail:{p:_ui.vClick}}) );
       },
 
 
       _down : function( e ) {
+        var evtDetail = {
+          p : null
+        };
+
         _ui.$canvas.addClass('no-select');
         _ui.timeDown = e.timeStamp;
         _ui.isDown = true;
@@ -92,16 +104,26 @@ define(
         _ui.vDown
           .set( e.pageX, e.pageY )
           .subtract( _ui.vCanvas );
+
+        evtDetail.p = _ui.vDown;
+        window.dispatchEvent( new CustomEvent( _ui.eventTypes.begin, {detail : evtDetail}) );
         // console.log( '***\nDrawUI._down', _ui.vDown.toString(), e.timeStamp );
       },
 
 
       _up : function( e ) {
+        var evtDetail = {
+          p : null,
+          endDraw : false,
+          isClick : false
+        };
+
         _ui.$canvas.removeClass('no-select');
         _ui.isDown = false;
 
         if( _ui.isDragged ) {
           _ui.isDragged = false;
+          evtDetail.endDraw = true;
           endDrag(e);
         }
 
@@ -110,24 +132,37 @@ define(
           .set( e.pageX, e.pageY )
           .subtract( _ui.vCanvas );
 
-        // console.log( 'DrawUI._up', _ui.vUp.toString() );
-        if( (_ui.vUp.distance(_ui.vDown) <= 2) && (e.timeStamp - _ui.timeDown) < clickTime ) {
+        evtDetail.p = _ui.vUp;
+        evtDetail.isClick = (_ui.vUp.distance(_ui.vDown) <= 2) && (e.timeStamp - _ui.timeDown) < clickTime;
+
+        window.dispatchEvent( new CustomEvent( _ui.eventTypes.end, {detail : evtDetail}) );
+        if( evtDetail.isClick ) {
           _ui._click( e );
         }
       },
 
 
       _drag : function( e ) {
+
+        var evtDetail = {
+          p : null,
+          startDraw : false
+        };
+
         if( !_ui.isDragged ) {
           dragList = [];
+          evtDetail.startDraw = true;
         }
+
         _ui.isDragged = true;
         _ui.vDrag
           .set( e.pageX, e.pageY )
           .subtract( _ui.vCanvas );
 
         dragList.push( _ui.vDrag.raw() );
-        // console.log( 'DrawUI._drag', _ui.vDrag.toString() );
+
+        evtDetail.p = _ui.vDrag.clone();
+        window.dispatchEvent( new CustomEvent( _ui.eventTypes.draw, {detail : evtDetail}) );
       },
 
 
@@ -176,7 +211,7 @@ define(
     };
 
 
-    // Utility functions
+
     function endDrag( e ) {
       var dragEvent = {
         timeStamp: e.timeStamp,

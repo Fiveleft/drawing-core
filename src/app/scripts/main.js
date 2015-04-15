@@ -12,7 +12,7 @@ require.config({
     drawAPI: 'draw/DrawAPI',
     drawUI: 'draw/DrawUI',
     Vector: 'fiveleft/core/Vector',
-    
+
   },
   shim: {
     // backbone: {
