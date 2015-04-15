@@ -1,0 +1,11 @@
+{
+  "name": "src",
+  "private": true,
+  "dependencies": {
+    "jquery": "~1.11.1",
+    "modernizr": "~2.8.2",
+    "requirejs": "~2.1.17",
+    "gsap": "~1.16.1",
+    "underscore": "~1.8.3"
+  }
+}

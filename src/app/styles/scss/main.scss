@@ -1,0 +1,100 @@
+@import "compass/reset";
+@import "compass";
+@import "core/variables";
+
+* {
+  @include box-sizing( border-box );
+}
+
+.no-select { 
+  user-select: none;
+  -o-user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  cursor: default;
+}
+
+.draw-wrapper{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 10px 10px 50px;
+}
+
+.canvas-container {
+  position: relative;
+  width: 100%; height: 100%;
+  border: 1px solid rgba( #333, 0.2 );
+}
+canvas {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+.canvas-ui {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 45px;
+  padding: 5px 0 0;
+  text-align: center;
+
+  button {
+    display: inline-block;
+    background: rgba( #000, 0.1 );
+    border: 1px solid rgba( #000, 0.2 );
+    color: #333;
+    font-size: 12px;
+    line-height: 1.25;
+    padding: 10px 25px;
+    min-width: 100px;
+    @include transition( background-color 0.2s );
+    &:focus {
+      outline: none;
+    }
+    &[disabled], &[disabled]:hover{
+      background: rgba( #999, 0.1 );
+      border-color: rgba( #999, 0.15 );
+      color: #999;
+    }
+  }
+
+  &[data-state='playing']{
+    button.stop {
+      background: rgba( #ff0000, 0.1 );
+      &:hover { 
+        background: rgba( #ff0000, 0.5 );
+      }
+    }
+    button.pause {
+      &:hover { 
+        background: rgba( #ffff00, 0.5 );
+      }
+    }
+  }
+  &[data-state='paused']{
+    button.stop {
+      background: rgba( #ff0000, 0.1 );
+      &:hover { 
+        background: rgba( #ff0000, 0.5 );
+      }
+    }
+    button.pause {
+      background: rgba( #00ff00, 0.1 );
+      &:hover { 
+        background: rgba( #00ff00, 0.5 );
+      }
+    }
+  }
+  &[data-state='stopped']{
+    button.stop {
+      background: rgba( #00ff00, 0.1 );
+      &:hover { 
+        background: rgba( #00ff00, 0.5 );
+      }
+    }
+  }
+}

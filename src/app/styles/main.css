@@ -1,0 +1,177 @@
+/* line 5, ../../../../../../../../.rvm/gems/ruby-2.1.4@global/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+/* line 22, ../../../../../../../../.rvm/gems/ruby-2.1.4@global/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
+html {
+  line-height: 1;
+}
+
+/* line 24, ../../../../../../../../.rvm/gems/ruby-2.1.4@global/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
+ol, ul {
+  list-style: none;
+}
+
+/* line 26, ../../../../../../../../.rvm/gems/ruby-2.1.4@global/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 28, ../../../../../../../../.rvm/gems/ruby-2.1.4@global/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+/* line 30, ../../../../../../../../.rvm/gems/ruby-2.1.4@global/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
+q, blockquote {
+  quotes: none;
+}
+/* line 103, ../../../../../../../../.rvm/gems/ruby-2.1.4@global/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+/* line 32, ../../../../../../../../.rvm/gems/ruby-2.1.4@global/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
+a img {
+  border: none;
+}
+
+/* line 116, ../../../../../../../../.rvm/gems/ruby-2.1.4@global/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
+  display: block;
+}
+
+/* line 5, scss/main.scss */
+* {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* line 9, scss/main.scss */
+.no-select {
+  user-select: none;
+  -o-user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  cursor: default;
+}
+
+/* line 18, scss/main.scss */
+.draw-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 10px 10px 50px;
+}
+
+/* line 27, scss/main.scss */
+.canvas-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border: 1px solid rgba(51, 51, 51, 0.2);
+}
+
+/* line 32, scss/main.scss */
+canvas {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+/* line 37, scss/main.scss */
+.canvas-ui {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 45px;
+  padding: 5px 0 0;
+  text-align: center;
+}
+/* line 45, scss/main.scss */
+.canvas-ui button {
+  display: inline-block;
+  background: rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  color: #333;
+  font-size: 12px;
+  line-height: 1.25;
+  padding: 10px 25px;
+  min-width: 100px;
+  -moz-transition: background-color 0.2s;
+  -o-transition: background-color 0.2s;
+  -webkit-transition: background-color 0.2s;
+  transition: background-color 0.2s;
+}
+/* line 55, scss/main.scss */
+.canvas-ui button:focus {
+  outline: none;
+}
+/* line 58, scss/main.scss */
+.canvas-ui button[disabled], .canvas-ui button[disabled]:hover {
+  background: rgba(153, 153, 153, 0.1);
+  border-color: rgba(153, 153, 153, 0.15);
+  color: #999;
+}
+/* line 66, scss/main.scss */
+.canvas-ui[data-state='playing'] button.stop {
+  background: rgba(255, 0, 0, 0.1);
+}
+/* line 68, scss/main.scss */
+.canvas-ui[data-state='playing'] button.stop:hover {
+  background: rgba(255, 0, 0, 0.5);
+}
+/* line 73, scss/main.scss */
+.canvas-ui[data-state='playing'] button.pause:hover {
+  background: rgba(255, 255, 0, 0.5);
+}
+/* line 79, scss/main.scss */
+.canvas-ui[data-state='paused'] button.stop {
+  background: rgba(255, 0, 0, 0.1);
+}
+/* line 81, scss/main.scss */
+.canvas-ui[data-state='paused'] button.stop:hover {
+  background: rgba(255, 0, 0, 0.5);
+}
+/* line 85, scss/main.scss */
+.canvas-ui[data-state='paused'] button.pause {
+  background: rgba(0, 255, 0, 0.1);
+}
+/* line 87, scss/main.scss */
+.canvas-ui[data-state='paused'] button.pause:hover {
+  background: rgba(0, 255, 0, 0.5);
+}
+/* line 93, scss/main.scss */
+.canvas-ui[data-state='stopped'] button.stop {
+  background: rgba(0, 255, 0, 0.1);
+}
+/* line 95, scss/main.scss */
+.canvas-ui[data-state='stopped'] button.stop:hover {
+  background: rgba(0, 255, 0, 0.5);
+}
