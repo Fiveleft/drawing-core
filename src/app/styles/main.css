@@ -87,25 +87,27 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   left: 0;
   width: 100%;
   height: 100%;
-  padding: 10px 10px 50px;
+  padding: 10px 10px 40px;
+  background: #f0f0f0;
 }
 
-/* line 27, scss/main.scss */
+/* line 28, scss/main.scss */
 .canvas-container {
   position: relative;
   width: 100%;
   height: 100%;
+  background: #fff;
   border: 1px solid rgba(51, 51, 51, 0.2);
 }
 
-/* line 32, scss/main.scss */
+/* line 34, scss/main.scss */
 canvas {
   position: absolute;
   width: 100%;
   height: 100%;
 }
 
-/* line 37, scss/main.scss */
+/* line 39, scss/main.scss */
 .canvas-ui {
   position: relative;
   display: block;
@@ -114,7 +116,7 @@ canvas {
   padding: 5px 0 0;
   text-align: center;
 }
-/* line 45, scss/main.scss */
+/* line 47, scss/main.scss */
 .canvas-ui button {
   display: inline-block;
   background: rgba(0, 0, 0, 0.1);
@@ -122,56 +124,56 @@ canvas {
   color: #333;
   font-size: 12px;
   line-height: 1.25;
-  padding: 10px 25px;
+  padding: 5px 15px;
   min-width: 100px;
   -moz-transition: background-color 0.2s;
   -o-transition: background-color 0.2s;
   -webkit-transition: background-color 0.2s;
   transition: background-color 0.2s;
 }
-/* line 55, scss/main.scss */
+/* line 57, scss/main.scss */
 .canvas-ui button:focus {
   outline: none;
 }
-/* line 58, scss/main.scss */
+/* line 60, scss/main.scss */
 .canvas-ui button[disabled], .canvas-ui button[disabled]:hover {
   background: rgba(153, 153, 153, 0.1);
   border-color: rgba(153, 153, 153, 0.15);
   color: #999;
 }
-/* line 66, scss/main.scss */
+/* line 68, scss/main.scss */
 .canvas-ui[data-state='playing'] button.stop {
   background: rgba(255, 0, 0, 0.1);
 }
-/* line 68, scss/main.scss */
+/* line 70, scss/main.scss */
 .canvas-ui[data-state='playing'] button.stop:hover {
   background: rgba(255, 0, 0, 0.5);
 }
-/* line 73, scss/main.scss */
+/* line 75, scss/main.scss */
 .canvas-ui[data-state='playing'] button.pause:hover {
   background: rgba(255, 255, 0, 0.5);
 }
-/* line 79, scss/main.scss */
+/* line 81, scss/main.scss */
 .canvas-ui[data-state='paused'] button.stop {
   background: rgba(255, 0, 0, 0.1);
 }
-/* line 81, scss/main.scss */
+/* line 83, scss/main.scss */
 .canvas-ui[data-state='paused'] button.stop:hover {
   background: rgba(255, 0, 0, 0.5);
 }
-/* line 85, scss/main.scss */
+/* line 87, scss/main.scss */
 .canvas-ui[data-state='paused'] button.pause {
   background: rgba(0, 255, 0, 0.1);
 }
-/* line 87, scss/main.scss */
+/* line 89, scss/main.scss */
 .canvas-ui[data-state='paused'] button.pause:hover {
   background: rgba(0, 255, 0, 0.5);
 }
-/* line 93, scss/main.scss */
+/* line 95, scss/main.scss */
 .canvas-ui[data-state='stopped'] button.stop {
   background: rgba(0, 255, 0, 0.1);
 }
-/* line 95, scss/main.scss */
+/* line 97, scss/main.scss */
 .canvas-ui[data-state='stopped'] button.stop:hover {
   background: rgba(0, 255, 0, 0.5);
 }

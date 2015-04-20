@@ -125,14 +125,14 @@ define([],function(){
 			var _x=this.x, _y=this.y, _z=this.z;
 			this.x = _y*v.z - _z*v.y;
 			this.y = _z*v.x - _x*v.z;
-			this.y = _x*v.y - _y*v.x;
+			this.z = _x*v.y - _y*v.x;
 			return this;
 		},
 
 		crossVectors : function( v1, v2 ){
 			this.x = v1.y*v2.z - v1.z*v2.y;
 			this.y = v1.z*v2.x - v1.x*v2.z;
-			this.y = v1.x*v2.y - v1.y*v2.x;
+			this.z = v1.x*v2.y - v1.y*v2.x;
 			return this;
 		},
 
@@ -200,7 +200,7 @@ define([],function(){
 			}
 			return this;
 		},
-
+ 
 		dot : function( v ){
 			return this.x*v.x + this.y*v.y + this.z*v.z;
 		},
@@ -211,6 +211,12 @@ define([],function(){
 
 		angleTo : function( v ) {
 			return Math.atan2(this.x-v.x, this.y-v.y);
+		},
+
+		angleOffset : function( v, a, d ) {
+			this.x = v.x + d*Math.sin(a);
+			this.y = v.y + d*Math.cos(a);
+			return this;
 		},
 
 		interpolateTo : function( v, a ) {

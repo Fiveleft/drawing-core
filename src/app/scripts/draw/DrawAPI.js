@@ -1,18 +1,20 @@
 define(
-  [ 'drawUI', 'jquery', 'underscore', 'tweenlite' ],
-  function( DrawUI, $, _, TweenLite ){
+  [ 'drawUI', 'jquery', 'underscore', 'tweenlite', 'draw/views/BlobView' ],
+  function( DrawUI, $, _, TweenLite, RenderView ){
 
     var _instance = null,
       cvs,
       ctx,
       renderFtn,
-      drawUIEvents = {},
       windowEvents;
 
     var DrawAPI = {
 
       initialize : function() {
         var self = this;
+
+        // Set up the DrawUI
+        DrawUI.useTouch = $('html').hasClass('touch');
 
         // Properties
         this.paused = false;
@@ -23,24 +25,11 @@ define(
           'resize' : _.throttle(function(){self._resize();}, 200),
         };
 
-        DrawUI.useTouch = $('html').hasClass('touch');
-
-        drawUIEvents[ DrawUI.eventTypes.click ] = function(e){ self._drawEvent(e); };
-        drawUIEvents[ DrawUI.eventTypes.begin ] = function(e){ self._drawEvent(e); };
-        drawUIEvents[ DrawUI.eventTypes.end ] = function(e){ self._drawEvent(e); };
-        drawUIEvents[ DrawUI.eventTypes.draw ] = function(e){ self._drawEvent(e); };
-        $(window).on( drawUIEvents );
+        this.renderView = new RenderView();
 
         $(window).on( windowEvents );
         return this;
       },
-
-
-
-      _drawEvent : function( e ) {
-        console.log( e.type, e.originalEvent.detail );
-      },
-
 
       /**
        * [destroy description]
@@ -58,8 +47,11 @@ define(
       setCanvas : function( el ) {
         this.$canvas = $(el);
         cvs = $(el)[0];
+        cvs.width = cvs.clientWidth;
+        cvs.height = cvs.clientHeight;
         ctx = cvs.getContext('2d');
         DrawUI.setCanvas( cvs );
+        this.renderView.setCanvas( cvs );
       },
 
 
@@ -118,6 +110,7 @@ define(
        */
       _render : function() {
         // console.log( 'RENDERING' );
+        this.renderView.render();
       },
 
 
@@ -137,9 +130,10 @@ define(
        * @return {[type]} [description]
        */
       _resize : function() {
-        cvs.width = this.$canvas.width();
-        cvs.height = this.$canvas.height();
+        cvs.width = cvs.clientWidth;
+        cvs.height = cvs.clientHeight;
         DrawUI.updateCanvas( cvs );
+        this.renderView.updateCanvas( cvs );
       }
     };
 

@@ -1,6 +1,6 @@
-// fiveleft/core/Utils.js
-// Fiveleft core utilities
 /**
+ * fiveleft/core/Utils.js
+ * Fiveleft core utilities
  * @see https://gist.github.com/neolitec/1344610
  * @see http://www.createjs.com/Docs/EaselJS/classes/Graphics.html
  */
@@ -43,7 +43,7 @@ define([],function(){
 	};
 
 	_u.clamp = function( value, min, max ) {
-		return (value < min) ? min : (value > max) ? max : value; 
+		return (value < min) ? min : (value > max) ? max : value;
 	};
 
 	_u.spread = function( value, min, max ) {
@@ -61,11 +61,11 @@ define([],function(){
 	};
 
 	_u.isBetween = function (value, min, max) {
-		return ((value > min) && (value < max)); 
+		return ((value > min) && (value < max));
 	};
 
 	_u.inRange = function (value, min, max) {
-		return ((value >= min) && (value <= max)); 
+		return ((value >= min) && (value <= max));
 	};
 
 	_u.ratioBetween = function (value, min, max) {
@@ -81,31 +81,31 @@ define([],function(){
 	};
 
 	_u.isObject = function (value) {
-		return typeof value === 'object' && value !== null; 
+		return typeof value === 'object' && value !== null;
 	};
 
 	_u.isNumber = function (value)  {
-		return typeof value === 'number'; 
+		return typeof value === 'number';
 	};
 
 	_u.isString = function (value)  {
-		return typeof value === 'string'; 
+		return typeof value === 'string';
 	};
 
 	_u.isFunction = function (value)  {
-		return typeof value === 'function'; 
+		return typeof value === 'function';
 	};
 
 	_u.isArray = function (value)  {
-		return Object.prototype.toString.call(value) === '[object Array]'; 
+		return Object.prototype.toString.call(value) === '[object Array]';
 	};
 
 	_u.isNull = function (value)  {
-		return value === null; 
+		return value === null;
 	};
 
 	_u.isUndefined = function (value)  {
-		return typeof value === 'undefined'; 
+		return typeof value === 'undefined';
 	};
 
 	_u.firstToLast = function( array ) {
@@ -153,20 +153,20 @@ define([],function(){
 
 
 
-	// COLOR HELPERS //
-	_u.getRGB = function(r, g, b, alpha) {
-		if (r !== null && b === null) {
-			alpha = g;
-			b = r&0xFF;
-			g = r>>8&0xFF;
-			r = r>>16&0xFF;
-		}
-		return (alpha===null) ? "rgb("+r+","+g+","+b+")" : "rgba("+r+","+g+","+b+","+alpha+")";
-	};
+	// // COLOR HELPERS //
+	// _u.getRGB = function(r, g, b, alpha) {
+	// 	if (r !== null && b === null) {
+	// 		alpha = g;
+	// 		b = r&0xFF;
+	// 		g = r>>8&0xFF;
+	// 		r = r>>16&0xFF;
+	// 	}
+	// 	return (alpha===null) ? "rgb("+r+","+g+","+b+")" : "rgba("+r+","+g+","+b+","+alpha+")";
+	// };
 
-	_u.getHSL = function(h, s, l, alpha) {
-		return alpha===null ? "hsl("+(h%360)+","+s+"%,"+l+"%)" : "hsla("+(h%360)+","+s+"%,"+l+"%,"+alpha+")";
-	};
+	// _u.getHSL = function(h, s, l, alpha) {
+	// 	return alpha===null ? "hsl("+(h%360)+","+s+"%,"+l+"%)" : "hsla("+(h%360)+","+s+"%,"+l+"%,"+alpha+")";
+	// };
 
 	return _u;
 });

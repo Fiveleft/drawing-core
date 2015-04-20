@@ -5,6 +5,7 @@ define(
     var _ui = null,
       cvs = null,
       clickTime = 300,
+      moveThrottle = 30,
       mouseEvents,
       touchEvents,
       dragList = [],
@@ -42,12 +43,12 @@ define(
         mouseEvents = {
           'mousedown' : self._down,
           'mouseup' : self._up,
-          'mousemove' : _.throttle( function(e){self._move(e);}, 60 ),
+          'mousemove' : _.throttle( function(e){self._move(e);}, moveThrottle ),
         };
         touchEvents = {
           'touchstart' : self._touchStart,
           'touchend' : self._touchEnd,
-          'touchmove' : _.throttle( function(e){self._touchMove(e);}, 60 ),
+          'touchmove' : _.throttle( function(e){self._touchMove(e);}, moveThrottle ),
         };
 
         return this;
@@ -160,7 +161,6 @@ define(
           .subtract( _ui.vCanvas );
 
         dragList.push( _ui.vDrag.raw() );
-
         evtDetail.p = _ui.vDrag.clone();
         window.dispatchEvent( new CustomEvent( _ui.eventTypes.draw, {detail : evtDetail}) );
       },
@@ -181,8 +181,8 @@ define(
 
       _touchStart : function( e ) {
         var mEvt = {
-          pageX: e.originalEvent.changedTouches[0].pageX,
-          pageY: e.originalEvent.changedTouches[0].pageY,
+          pageX: e.originalEvent.touches[0].clientX,
+          pageY: e.originalEvent.touches[0].clientY,
           timeStamp: e.timeStamp
         };
         _ui._down( mEvt );
@@ -191,8 +191,8 @@ define(
 
       _touchEnd : function( e ) {
         var mEvt = {
-          pageX: e.originalEvent.changedTouches[0].pageX,
-          pageY: e.originalEvent.changedTouches[0].pageY,
+          pageX: e.originalEvent.changedTouches[0].clientX,
+          pageY: e.originalEvent.changedTouches[0].clientY,
           timeStamp: e.timeStamp
         };
         _ui._up( mEvt );
@@ -201,8 +201,8 @@ define(
 
       _touchMove : function( e ) {
         var mEvt = {
-          pageX: e.originalEvent.changedTouches[0].pageX,
-          pageY: e.originalEvent.changedTouches[0].pageY,
+          pageX: e.originalEvent.touches[0].clientX,
+          pageY: e.originalEvent.touches[0].clientY,
           timeStamp: e.timeStamp
         };
         _ui._move( mEvt );

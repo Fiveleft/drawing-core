@@ -1,131 +1,78 @@
-(function(){
+define(
+  ['Vector'],
+  function( Vector ){
 
-	// Namespace
-	window.fiveleft = (typeof window.fiveleft == "undefined") ? {} : window.fiveleft;
-	
-	// Dependencies
-	var dependencies = [ "Vector" ];
-	for( var d=dependencies.length-1; d!==-1; d-- ) {
-		if( typeof fiveleft[dependencies[d]] === "undefined" ) {
-			throw new Error( "fiveleft.MotionVector uses " + dependencies[d].toString() + " but could not find it" );
-		}
-	}
-
-	function MotionVector( x, y, z )
-	{
-		this.x = x||0;
-		this.y = y||0;
-		this.z = z||0;
-
-		// Affecting Vectors
-		this.target = new fiveleft.Vector();
-		this.acc = new fiveleft.Vector();
-		this.vel = new fiveleft.Vector(); 
-		this.maxVelocity = new fiveleft.Vector(); 
-		this.speed = new fiveleft.Vector(); 
-		this.friction = new fiveleft.Vector(1,1,1);
-
-		// Internal Functions
-		var applyUpdate = function() {
-			this.acc.set().add( this.friction );
-			this.vel.subtractVectors( this.target, this ).multiply( this.acc );
-
-			// TODO: Add max/min velocity
-			// if( this.maxVelocity.length() !== 0 ) {
-			// 	this.vel.limit
-			// }
-			this.add( this.vel );
-		};
-
-		// Functions
-		this.setTarget = mv_setTarget;
-		this.onUpdate = mv_onUpdate;
-		
-		this.update = function() {
-			applyUpdate.apply( this );
-			this.onUpdate();
-		};
-	}
+    var minSpeed = 0.0001,
+      maxSpeed = 1;
 
 
-	// --------------------------------------------------------------------
-	// Cached Functions
-	// --------------------------------------------------------------------
+    var MotionVector = function( options ) {
+      
+      var oldTarget = new Vector(),
+        vel = new Vector(),
+        spd = new Vector();
 
-	
-	function mv_setTarget( v )
-	{
-		this.target.copy(v);
-		this.update();
-	}
+      options = (options || {});
 
-	
-	function mv_onUpdate()
-	{
-		// intended to be overridden
-		//  - can call this.x, this.y to get scope position
-	}
+      this.pos = new Vector(1,1,1);
+      this.target = new Vector();
+      this.maxVelocity = options.maxVelocity || MotionVector.defaults.maxVelocity;
+      this.friction = options.friction || MotionVector.defaults.friction;
+      this.speed = options.speed || MotionVector.defaults.speed;
+      this.acceleration = options.acceleration || MotionVector.defaults.acceleration;
+      this.moving = false;
+     // this.flagMoving = false;
+
+      this.setTarget = function( x, y, z ) {
+        oldTarget.copy( this.target );
+        if( typeof x === 'number' ) {
+          this.target.set( x, y, z );
+        }else{
+          this.target.copy(x);
+        }
+        this.moving = this.getDistance() > 0.99;
+        return this;
+      };
+
+      this.update = function() {
+        // Update the Motion Vectors
+        this.moving = this.getDistance() > 0.99;
+
+        spd
+          .set()
+          .addScalar( this.friction )
+          .multiplyScalar( this.speed );
+
+        vel
+          .subtractVectors( this.target, this.pos )
+          .multiply( spd )
+          .limit( -this.maxVelocity, this.maxVelocity );
+
+        this.pos
+          .add( vel );
+
+        this.speed = (this.speed<maxSpeed) ? this.speed * (1+this.acceleration) : maxSpeed;
+
+        return this;
+      };
+
+      this.getDistance = function() {
+        return this.target.distance( this.pos );
+      };
+
+      this.getRatio = function() {
+        return this.target.distance( oldTarget ) / this.pos.distance( oldTarget );
+      };
+
+    };
 
 
-	function mv_setMaxVelocity( v ) 
-	{
-		if( !v ) {
-			this.maxVelocity.set( 0, 0, 0 );
-		}else{
-			this.maxVelocity.copy( v );
-		}
-	}
+    MotionVector.defaults = {
+      maxVelocity : 5,
+      friction : 0.095,
+      speed : minSpeed,
+      acceleration : 0.5
+    };
 
-
-	// --------------------------------------------------------------------
-	// Prototype & Namespace Definition
-	// --------------------------------------------------------------------
-
-	MotionVector.prototype = new fiveleft.Vector();
-	MotionVector.constructor = MotionVector;
-
-	fiveleft.MotionVector = MotionVector;
-
-
-}());
-
-// var Accelerator = function() 
-// 	{
-// 		this.target = new fiveleft.Vector();
-// 		this.pos = new fiveleft.Vector();
-// 		this.acc = new fiveleft.Vector();
-// 		this.vel = new fiveleft.Vector(); 
-// 		this.speed = new fiveleft.Vector(); 
-// 		this.friction = new fiveleft.Vector(1,1,1);
-// 		var applyUpdate = function() {
-// 			this.acc
-// 				.set()
-// 				.add( this.friction );
-// 			this.vel
-// 				.subtractVectors( this.target, this.pos )
-// 				.multiply( this.acc );
-// 			this.pos
-// 				.add( this.vel );
-// 		};
-// 		this.update = function() {
-// 			applyUpdate.apply(this);
-// 			this.onUpdate();
-// 			return this.pos;
-// 		};
-// 		this.set = function( v ){
-// 			this.target.copy(v);
-// 			this.update();
-// 		};
-// 	};
-
-// 	Accelerator.prototype = {
-// 		constructor : Accelerator
-// 		,target : null
-// 		,pos : null
-// 		,acc : null
-// 		,vel : null 
-// 		,friction : null
-// 		,set : function() {}
-// 		,update : function() {}
-// 		,onUpdate : function() {}
-// 	};
+    return MotionVector;
+  });
