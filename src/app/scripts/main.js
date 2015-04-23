@@ -7,6 +7,7 @@ require.config({
     tweenlite: '../bower_components/gsap/src/uncompressed/TweenLite',
     tweenmax: '../bower_components/gsap/src/uncompressed/TweenMax',
     scrollPlugin: '../bower_components/gsap/src/uncompressed/plugins/ScrollToPlugin',
+    easePack: '../bower_components/gsap/src/uncompressed/easing/EasePack',
     app: 'app/Application',
     
     drawAPI: 'draw/DrawAPI',
@@ -23,7 +24,7 @@ require.config({
   },
   shim: {
     'tweenlite': {
-      deps: ['scrollPlugin'],
+      deps: ['easePack', 'scrollPlugin'],
       exports: 'TweenLite'
     }
   }

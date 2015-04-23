@@ -34,6 +34,10 @@ define([],function(){
 		return (value * -0.5) + (Math.random()*value);
 	};
 
+	_u.roundRandomBetween = function( min, max ) {
+		return _u.round( min + (Math.random() * (max-min)) );
+	};
+
 	_u.eitherOr = function( a, b ) {
 		return Math.random() > 0.5 ? a : b;
 	};

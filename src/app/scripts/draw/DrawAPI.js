@@ -1,5 +1,5 @@
 define(
-  [ 'drawUI', 'jquery', 'underscore', 'tweenlite', 'draw/views/BlobView' ],
+  [ 'drawUI', 'jquery', 'underscore', 'tweenlite', 'draw/views/BlobExpandView' ],
   function( DrawUI, $, _, TweenLite, RenderView ){
 
     var _instance = null,

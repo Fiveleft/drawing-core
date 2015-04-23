@@ -9,6 +9,7 @@ define([],function(){
 
 	Vector.prototype = {
 
+		type : 'Vector',
 		constructor : Vector,
 		x : 0,
 		y : 0,
@@ -22,9 +23,9 @@ define([],function(){
 		},
 
 		copy : function( v ){
-			this.x = v.x;
-			this.y = v.y;
-			this.z = v.z;
+			this.x = v.x||0;
+			this.y = v.y||0;
+			this.z = v.z||0;
 			return this;
 		},
 
