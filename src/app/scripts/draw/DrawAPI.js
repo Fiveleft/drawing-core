@@ -31,12 +31,28 @@ define(
         return this;
       },
 
+
+      eventTypes : {
+        start : 'drawAPI:start',
+        stop : 'drawAPI:stop',
+        reset : 'drawAPI:reset'
+      },
+
       /**
        * [destroy description]
        * @return {[type]} [description]
        */
       destroy : function() {
         $(window).off( windowEvents );
+      },
+
+
+      /**
+       * [reset description]
+       * @return {[type]} [description]
+       */
+      reset : function() {
+        
       },
 
 
@@ -65,7 +81,8 @@ define(
           this.resume();
           return;
         }
-
+        window.dispatchEvent( new CustomEvent( this.eventTypes.start ) );
+      
         TweenLite.ticker.removeEventListener('tick', renderFtn);
         TweenLite.ticker.addEventListener('tick', renderFtn);
         DrawUI.start();
@@ -79,6 +96,7 @@ define(
       stop : function() {
         this.playing = false;
         this.paused = false;
+        window.dispatchEvent( new CustomEvent( this.eventTypes.stop ) );
         TweenLite.ticker.removeEventListener('tick', renderFtn);
         DrawUI.stop();
       },

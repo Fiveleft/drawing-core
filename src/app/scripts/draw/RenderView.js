@@ -7,8 +7,9 @@ define(
       this.initialize.apply(this, arguments);
     };
 
+    RenderView.prototype = {
 
-    _.extend( RenderView.prototype, {
+      constructor : RenderView,
 
       playing : false,
 
@@ -34,7 +35,7 @@ define(
         this.updateCanvas();
       },
 
-    });
+    };
 
 
     // Helper function to correctly set up the prototype chain, for subclasses.

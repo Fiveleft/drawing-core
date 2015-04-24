@@ -9,10 +9,14 @@ define([],function(){
 
 	Vector.prototype = {
 
-		type : 'Vector',
 		constructor : Vector,
+
+		type : 'Vector',
+
 		x : 0,
+
 		y : 0,
+		
 		z : 0,
 
 		set : function( x, y, z ){

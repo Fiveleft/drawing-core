@@ -18,6 +18,7 @@ define(
 
         this.$btnStart.on('click', function(e){self._togglePlay(e);});
         this.$btnPause.on('click', function(e){self._togglePause(e);});
+        this.$btnReset.on('click', function(e){self._reset(e);});
 
         return this;
       },
@@ -56,6 +57,12 @@ define(
           DrawAPI.stop();
           break;
         }
+      },
+
+
+      _reset : function( e ) {
+        e.preventDefault();
+        DrawAPI.reset();
       },
 
 
