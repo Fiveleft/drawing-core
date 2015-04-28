@@ -1,5 +1,5 @@
 define(
-  [ 'drawUI', 'jquery', 'underscore', 'tweenlite', 'draw/views/BlobExpandView' ],
+  [ 'drawUI', 'jquery', 'underscore', 'tweenlite', 'draw/views/CompositionView' ],
   function( DrawUI, $, _, TweenLite, RenderView ){
 
     var _instance = null,
@@ -52,7 +52,7 @@ define(
        * @return {[type]} [description]
        */
       reset : function() {
-        
+
       },
 
 
